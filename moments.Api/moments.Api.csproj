@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\moments.Core\moments.Core.csproj" />
     <ProjectReference Include="..\moments.Services\moments.Services.csproj" />
+    <ProjectReference Include="..\moments.Data\moments.Data.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

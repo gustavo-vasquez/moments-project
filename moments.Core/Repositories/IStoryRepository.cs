@@ -6,6 +6,6 @@ namespace moments.Core.Repositories
 {
     public interface IStoryRepository : IRepository<Story>
     {
-        Task<bool> CheckStoryLimitAsync();
+        Task<bool> StoryLimitNotExceededAsync(int userId);
     }
 }

@@ -7,5 +7,6 @@ namespace moments.Core.Repositories
     public interface ICommentRepository : IRepository<Comment>
     {
         Task<bool> SendLikeToCommentAsync(int userId, int commentId);
+        int CommentLikesCount(int commentId);
     }
 }

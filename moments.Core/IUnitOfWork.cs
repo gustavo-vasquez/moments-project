@@ -11,6 +11,8 @@ namespace moments.Core
         ICommentRepository Comments { get; }
         IStoryRepository Stories { get; }
         INotificationRepository Notifications { get; }
+        IHashtagRepository Hashtags { get; }
+        IMentionRepository Mentions { get; }
         Task<int> CommitAsync();
     }
 }

@@ -7,6 +7,6 @@ namespace moments.Core.Repositories
     public interface INotificationRepository : IRepository<Notification>
     {
         Task<bool> MarkAsReadAsync(int userId, int notificationId);
-        Task<bool> MarkAllAsReadAsync();
+        Task<bool> MarkAllAsReadAsync(int userId);
     }
 }
