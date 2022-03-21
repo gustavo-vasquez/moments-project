@@ -11,10 +11,11 @@ namespace moments.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CommentId { get; set; }
 
+        [Required]
         [MaxLength(250)]
-        public string Content { get; set; }
-        public int ReplyToCommentId { get; set; }
+        public string Text { get; set; }
         public DateTime PublicationDate { get; set; }
+        public int? ReplyToCommentId { get; set; }
         public int IdUser { get; set; }
         public int IdPost { get; set; }
 
@@ -23,6 +24,9 @@ namespace moments.Core.Models
 
         [ForeignKey("IdPost")]
         public Post Post { get; set; } // user 1 a N posts
-        public ICollection<LikeComment> LikesComment { get; set; }
+        public ICollection<LikeComment> LikeComment { get; set; }
+
+        [ForeignKey("ReplyToCommentId")]
+        public ICollection<Comment> CommentReplies { get; set; }
     }
 }

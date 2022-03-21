@@ -25,7 +25,7 @@ namespace moments.Core.Models
         public string Username { get; set; }
 
         [MaxLength(25)]
-        public string Alias { get; set; }
+        public string Nickname { get; set; }
 
         [MaxLength(25)]
         public string Name { get; set; }
@@ -33,23 +33,24 @@ namespace moments.Core.Models
         [MaxLength(25)]
         public string Lastname { get; set; }
 
-        [MaxLength(250)]
+        [MaxLength(300)]
         public string Biography { get; set; }
 
         [Range(00000001,9999999999)]
         public int? Telephone { get; set; }
         public DateTime Birthdate { get; set; }
+
+        // 1 a N
         public ICollection<Post> Posts { get; set; } // user 1 a N posts
         public ICollection<Story> Stories { get; set; } // user 1 a N stories
         public ICollection<Comment> Comments { get; set; } // user 1 a N comentarios
-        public ICollection<Like> Likes { get; set; }
-        public ICollection<LikeComment> LikesComment { get; set; }
+
+        // N a N
         public ICollection<ReadLater> ReadLater { get; set; }
-
-        [InverseProperty("UserFollowing")]
-        public ICollection<User> UserFollower { get; set; }
-
-        [InverseProperty("UserFollower")]
-        public ICollection<User> UserFollowing { get; set; }
+        public ICollection<LikePost> LikePost { get; set; }
+        public ICollection<LikeComment> LikeComment { get; set; }
+        public ICollection<UserFollow> UserFollower { get; set; }
+        public ICollection<UserFollow> UserFollowing { get; set; }
+        public ICollection<Mention> Mentions { get; set; }
     }
 }

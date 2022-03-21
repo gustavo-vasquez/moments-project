@@ -21,7 +21,7 @@ namespace moments.Data.Repositories
         {
             
         }
-        public async Task<bool> EditPostAsync(int userId, int postId, string[] mediaContent, PostType type, string description)
+        public async Task<bool> EditPostAsync(int userId, int postId, string mediaContent, PostType type, string description)
         {
             try
             {
@@ -30,13 +30,13 @@ namespace moments.Data.Repositories
                 switch(type)
                 {
                     case PostType.IMAGE:
-                        postToEdit.ImageUrl = mediaContent[0];
+                        postToEdit.ImageUrl = mediaContent;
                         break;
                     case PostType.VIDEO:
-                        postToEdit.VideoUrl = mediaContent[0];
+                        postToEdit.VideoUrl = mediaContent;
                         break;
                     case PostType.GALLERY:
-                        postToEdit.Gallery = mediaContent;
+                        postToEdit.GalleryUrls = mediaContent;
                         break;
                     default:
                         throw new ArgumentException("El tipo de contenido multimedia no es válido.");
@@ -56,7 +56,7 @@ namespace moments.Data.Repositories
         {
             try
             {
-                await _context.Likes.AddAsync(new Like
+                await _context.LikePost.AddAsync(new LikePost
                 {
                     IdUser = userId,
                     IdPost = postId,
@@ -71,9 +71,9 @@ namespace moments.Data.Repositories
             }
         }
 
-        public int LikeCount(int postId)
+        public int GetLikeCount(int postId)
         {
-            return _context.Likes.Count(x => x.IdPost == postId);
+            return _context.LikePost.Count(x => x.IdPost == postId);
         }
     }
 }

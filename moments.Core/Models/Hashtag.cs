@@ -11,6 +11,7 @@ namespace moments.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int HashtagId { get; set; }
 
+        [Required]
         [MaxLength(20)]
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }

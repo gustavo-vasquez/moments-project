@@ -10,6 +10,7 @@ namespace moments.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int NotificationId { get; set; }
 
+        [Required]
         [MaxLength(100)]
         public string Description { get; set; }
         public bool IsRead { get; set; }

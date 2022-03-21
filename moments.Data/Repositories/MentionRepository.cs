@@ -24,17 +24,10 @@ namespace moments.Data.Repositories
             
         }
 
-        public async Task<IEnumerable<int>> GetPostIdsWithMentionAsync(string username)
+        public async Task<IEnumerable<Mention>> GetPostIdsWithMentionAsync(int userId)
         {
-            IEnumerable<Mention> mentions = await base.SearchAsync(x => x.UsersList.Contains(username));
-            List<int> postIds = new List<int>();
-
-            foreach(Mention mention in mentions)
-            {
-                postIds.Add(mention.IdPost);
-            }
-
-            return postIds;
+            IEnumerable<Mention> mentions = await base.SearchAsync(x => x.IdUser == userId);
+            return mentions;
         }
     }
 }

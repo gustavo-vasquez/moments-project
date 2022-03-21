@@ -8,13 +8,9 @@ namespace moments.Core.Models
 {
     public class Mention
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int MentionId { get; set; }
-        public IEnumerable<string> UsersList { get; set; }
+        public int IdUser { get; set; }
+        public User User { get; set; }
         public int IdPost { get; set; }
-
-        [ForeignKey("IdPost")]
         public Post Post { get; set; }
     }
 }

@@ -10,8 +10,8 @@ namespace moments.Core.Repositories
         //bool Publish(int userId, string mediaContent, PostType type, string description);
         Task<bool> SendLikeAsync(int userId, int postId);
         //bool AddComment(int userId, string comment);
-        Task<bool> EditPostAsync(int userId, int postId, string[] mediaContent, PostType type, string description);
+        Task<bool> EditPostAsync(int userId, int postId, string mediaContent, PostType type, string description);
         //bool DropPost(int userId, int postId);
-        int LikeCount(int postId);
+        int GetLikeCount(int postId);
     }
 }

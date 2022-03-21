@@ -1,3 +1,4 @@
+using System.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,6 +22,7 @@ namespace moments.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
         }
 
         public IConfiguration Configuration { get; }
@@ -29,6 +32,14 @@ namespace moments.Api
         {
             services.AddControllers();
             services.AddScoped<IUnitOfWork,UnitOfWork>();
+            services.AddDbContext<MomentsDbContext>
+            (
+                options => options.UseSqlServer
+                (
+                    Configuration.GetConnectionString("MomentsDbConnection"),
+                    x => x.MigrationsAssembly("moments.Data")
+                )
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

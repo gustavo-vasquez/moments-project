@@ -13,21 +13,22 @@ namespace moments.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PostId { get; set; }
 
+        [Required]
         [MaxLength(500)]
         public string Description { get; set; }
         public DateTime PublicationDate { get; set; }
         public PostType Type { get; set; }
         public string ImageUrl { get; set; }
         public string VideoUrl { get; set; }
-        public IEnumerable<string> Gallery { get; set; }
+        public string GalleryUrls { get; set; }
         public int IdUser { get; set; } // FK
 
         [ForeignKey("IdUser")]
         public User User { get; set; } // user 1 a N posts (N posts pertenecen a un usuario)
-        public ICollection<Comment> Comments { get; set; } // user 1 a N comentarios (N comentarios pertenecen a un post)
-        public ICollection<Like> Likes { get; set; }
         public ICollection<ReadLater> ReadLater { get; set; }
-        public ICollection<Mention> Mentions { get; set; }
+        public ICollection<LikePost> LikePost { get; set; }
+        public ICollection<Comment> Comments { get; set; } // user 1 a N comentarios (N comentarios pertenecen a un post)
         public ICollection<Hashtag> Hashtags { get; set; }
+        public ICollection<Mention> Mentions { get; set; }
     }
 }
