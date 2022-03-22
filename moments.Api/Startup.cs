@@ -22,7 +22,7 @@ namespace moments.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13 | SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
         public IConfiguration Configuration { get; }

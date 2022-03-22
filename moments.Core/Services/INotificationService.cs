@@ -6,6 +6,6 @@ namespace moments.Core.Services
     public interface INotificationService
     {
         Task<bool> MarkAsRead(int userId, int notificationId);
-        Task<bool> MarkAllAsRead();
+        Task<bool> MarkAllAsRead(int userId);
     }
 }

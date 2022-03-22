@@ -15,6 +15,6 @@ namespace moments.Core.Models
         [MaxLength(20)]
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
-        public ICollection<Post> Posts { get; set; }
+        public ICollection<HashtagPost> HashtagPost { get; set; }
     }
 }

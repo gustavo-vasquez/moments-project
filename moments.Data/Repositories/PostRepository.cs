@@ -21,6 +21,7 @@ namespace moments.Data.Repositories
         {
             
         }
+        
         public async Task<bool> EditPostAsync(int userId, int postId, string mediaContent, PostType type, string description)
         {
             try
@@ -43,25 +44,6 @@ namespace moments.Data.Repositories
                 }
 
                 postToEdit.Description = description;
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public async Task<bool> SendLikeAsync(int userId, int postId)
-        {
-            try
-            {
-                await _context.LikePost.AddAsync(new LikePost
-                {
-                    IdUser = userId,
-                    IdPost = postId,
-                    ActionDate = DateTime.Now
-                });
 
                 return true;
             }

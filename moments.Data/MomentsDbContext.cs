@@ -32,6 +32,7 @@ namespace moments.Data
             modelBuilder.ApplyConfiguration(new UserFollowConfiguration());
             modelBuilder.ApplyConfiguration(new PostConfiguration());
             modelBuilder.ApplyConfiguration(new MentionConfiguration());
+            modelBuilder.ApplyConfiguration(new HashtagPostConfiguration());
             modelBuilder.Entity<Comment>().HasOne(c => c.User).WithMany(u => u.Comments).HasForeignKey(c => c.IdUser).OnDelete(DeleteBehavior.Restrict);
         }
     }

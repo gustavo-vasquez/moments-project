@@ -4,7 +4,7 @@ using moments.Core.Repositories;
 
 namespace moments.Data.Repositories
 {
-    public class HashtagRepository : Repository<Hashtag>, IHashtagRepository
+    public class HashtagPostRepository : Repository<HashtagPost>, IHashtagPostRepository
     {
         private MomentsDbContext _context
         {
@@ -14,7 +14,7 @@ namespace moments.Data.Repositories
             }
         }
 
-        public HashtagRepository(MomentsDbContext context) : base (context)
+        public HashtagPostRepository(MomentsDbContext context) : base (context)
         {
             
         }

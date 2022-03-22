@@ -16,6 +16,11 @@ namespace moments.Data
         private NotificationRepository _notificationRepository;
         private HashtagRepository _hashtagRepository;
         private MentionRepository _mentionRepository;
+        private UserFollowRepository _userFollowRepository;
+        private ReadLaterRepository _readLaterRepository;
+        private LikePostRepository _likePostRepository;
+        private LikeCommentRepository _likeCommentRepository;
+        private HashtagPostRepository _hashtagPostRepository;
         public IUserRepository Users => _userRepository = _userRepository ?? new UserRepository(_context);
 
         public IPostRepository Posts => _postRepository = _postRepository ?? new PostRepository(_context);
@@ -29,6 +34,11 @@ namespace moments.Data
         public IHashtagRepository Hashtags => _hashtagRepository = _hashtagRepository ?? new HashtagRepository(_context);
 
         public IMentionRepository Mentions => _mentionRepository = _mentionRepository ?? new MentionRepository(_context);
+        public IUserFollowRepository UserFollow => _userFollowRepository = _userFollowRepository ?? new UserFollowRepository(_context);
+        public IReadLaterRepository ReadLater => _readLaterRepository = _readLaterRepository ?? new ReadLaterRepository(_context);
+        public ILikePostRepository LikePost => _likePostRepository = _likePostRepository ?? new LikePostRepository(_context);
+        public ILikeCommentRepository LikeComment => _likeCommentRepository = _likeCommentRepository ?? new LikeCommentRepository(_context);
+        public IHashtagPostRepository HashtagPost => _hashtagPostRepository = _hashtagPostRepository ?? new HashtagPostRepository(_context);
 
         public async Task<int> CommitAsync()
         {

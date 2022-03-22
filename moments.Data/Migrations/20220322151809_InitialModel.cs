@@ -178,21 +178,21 @@ namespace moments.Data.Migrations
                 name: "HashtagPost",
                 columns: table => new
                 {
-                    HashtagsHashtagId = table.Column<int>(type: "int", nullable: false),
-                    PostsPostId = table.Column<int>(type: "int", nullable: false)
+                    IdHashtag = table.Column<int>(type: "int", nullable: false),
+                    IdPost = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HashtagPost", x => new { x.HashtagsHashtagId, x.PostsPostId });
+                    table.PrimaryKey("PK_HashtagPost", x => new { x.IdHashtag, x.IdPost });
                     table.ForeignKey(
-                        name: "FK_HashtagPost_Hashtags_HashtagsHashtagId",
-                        column: x => x.HashtagsHashtagId,
+                        name: "FK_HashtagPost_Hashtags_IdHashtag",
+                        column: x => x.IdHashtag,
                         principalTable: "Hashtags",
                         principalColumn: "HashtagId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_HashtagPost_Posts_PostsPostId",
-                        column: x => x.PostsPostId,
+                        name: "FK_HashtagPost_Posts_IdPost",
+                        column: x => x.IdPost,
                         principalTable: "Posts",
                         principalColumn: "PostId",
                         onDelete: ReferentialAction.Cascade);
@@ -313,9 +313,9 @@ namespace moments.Data.Migrations
                 column: "ReplyToCommentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HashtagPost_PostsPostId",
+                name: "IX_HashtagPost_IdPost",
                 table: "HashtagPost",
-                column: "PostsPostId");
+                column: "IdPost");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LikeComment_IdComment",

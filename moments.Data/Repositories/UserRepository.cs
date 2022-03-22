@@ -64,32 +64,14 @@ namespace moments.Data.Repositories
             }
         }
 
-        public async Task<bool> FollowUserAsync(int userId, int userIdToFollow)
-        {
-            try
-            {
-                await _context.UserFollow.AddAsync(
-                    new UserFollow
-                    {
-                        IdFollower = userId,
-                        IdFollowing = userIdToFollow
-                    });
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         public async Task<IEnumerable<User>> GetFollowingAsync(int userId)
         {
             List<UserFollow> followingByMe = await _context.UserFollow.Include(x => x.IdFollower == userId).ToListAsync();
             List<User> followingList = new List<User>();
 
-            foreach(var f in followingByMe)
+            foreach(UserFollow f in followingByMe)
             {
-                var user = await base.GetByIdAsync(f.IdFollowing);
+                User user = await base.GetByIdAsync(f.IdFollowing);
                 followingList.Add(user);
             }
 
@@ -101,27 +83,13 @@ namespace moments.Data.Repositories
             List<UserFollow> followingMe = await _context.UserFollow.Include(x => x.IdFollowing == userId).ToListAsync();
             List<User> followersList = new List<User>();
 
-            foreach(var f in followingMe)
+            foreach(UserFollow f in followingMe)
             {
-                var user = await base.GetByIdAsync(f.IdFollower);
+                User user = await base.GetByIdAsync(f.IdFollower);
                 followersList.Add(user);
             }
 
             return followersList;
-        }
-
-        public async Task<bool> UnfollowUserAsync(int userId, int userIdToUnfollow)
-        {
-            try
-            {
-                UserFollow userFollow = await _context.UserFollow.FindAsync(userId, userIdToUnfollow);
-                _context.UserFollow.Remove(userFollow);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }

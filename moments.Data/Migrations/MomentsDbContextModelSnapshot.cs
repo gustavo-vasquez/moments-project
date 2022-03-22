@@ -19,21 +19,6 @@ namespace moments.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.14")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("HashtagPost", b =>
-                {
-                    b.Property<int>("HashtagsHashtagId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PostsPostId")
-                        .HasColumnType("int");
-
-                    b.HasKey("HashtagsHashtagId", "PostsPostId");
-
-                    b.HasIndex("PostsPostId");
-
-                    b.ToTable("HashtagPost");
-                });
-
             modelBuilder.Entity("moments.Core.Models.Comment", b =>
                 {
                     b.Property<int>("CommentId")
@@ -87,6 +72,21 @@ namespace moments.Data.Migrations
                     b.HasKey("HashtagId");
 
                     b.ToTable("Hashtags");
+                });
+
+            modelBuilder.Entity("moments.Core.Models.HashtagPost", b =>
+                {
+                    b.Property<int>("IdHashtag")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdPost")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdHashtag", "IdPost");
+
+                    b.HasIndex("IdPost");
+
+                    b.ToTable("HashtagPost");
                 });
 
             modelBuilder.Entity("moments.Core.Models.LikeComment", b =>
@@ -328,21 +328,6 @@ namespace moments.Data.Migrations
                     b.ToTable("UserFollow");
                 });
 
-            modelBuilder.Entity("HashtagPost", b =>
-                {
-                    b.HasOne("moments.Core.Models.Hashtag", null)
-                        .WithMany()
-                        .HasForeignKey("HashtagsHashtagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("moments.Core.Models.Post", null)
-                        .WithMany()
-                        .HasForeignKey("PostsPostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("moments.Core.Models.Comment", b =>
                 {
                     b.HasOne("moments.Core.Models.Post", "Post")
@@ -364,6 +349,25 @@ namespace moments.Data.Migrations
                     b.Navigation("Post");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("moments.Core.Models.HashtagPost", b =>
+                {
+                    b.HasOne("moments.Core.Models.Hashtag", "Hashtag")
+                        .WithMany("HashtagPost")
+                        .HasForeignKey("IdHashtag")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("moments.Core.Models.Post", "Post")
+                        .WithMany("HashtagPost")
+                        .HasForeignKey("IdPost")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hashtag");
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("moments.Core.Models.LikeComment", b =>
@@ -501,9 +505,16 @@ namespace moments.Data.Migrations
                     b.Navigation("LikeComment");
                 });
 
+            modelBuilder.Entity("moments.Core.Models.Hashtag", b =>
+                {
+                    b.Navigation("HashtagPost");
+                });
+
             modelBuilder.Entity("moments.Core.Models.Post", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("HashtagPost");
 
                     b.Navigation("LikePost");
 

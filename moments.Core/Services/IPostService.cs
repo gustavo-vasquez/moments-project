@@ -8,7 +8,8 @@ namespace moments.Core.Services
     {
         Task<bool> Publish(int userId, string mediaContent, PostType type, string description);
         Task<bool> EditPostAsync(int userId, int postId, string mediaContent, PostType type, string description);
-        Task<bool> DropPost(int userId, int postId);
+        void DropPost(int userId, int postId);
         Task<bool> SendLikeAsync(int userId, int postId);
+        int GetLikesCount(int postId);
     }
 }

@@ -8,7 +8,7 @@ namespace moments.Core.Services
     public interface IUserService
     {
         Task<bool> CreateUser(string email, string password, string username);
-        Task<bool> DropOut(int userId, string password);
+        void DropOut(int userId, string password);
         Task<User> Login(string emailOrUsername, string password);
         Task<bool> Logout();
         Task<bool> EditPassword(int userId, string oldPassword, string newPassword);

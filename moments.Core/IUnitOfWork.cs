@@ -13,6 +13,11 @@ namespace moments.Core
         INotificationRepository Notifications { get; }
         IHashtagRepository Hashtags { get; }
         IMentionRepository Mentions { get; }
+        IUserFollowRepository UserFollow { get; }
+        IReadLaterRepository ReadLater { get; }
+        ILikePostRepository LikePost { get; }
+        ILikeCommentRepository LikeComment { get; }
+        IHashtagPostRepository HashtagPost { get; }
         Task<int> CommitAsync();
     }
 }

@@ -28,7 +28,7 @@ namespace moments.Core.Models
         public ICollection<ReadLater> ReadLater { get; set; }
         public ICollection<LikePost> LikePost { get; set; }
         public ICollection<Comment> Comments { get; set; } // user 1 a N comentarios (N comentarios pertenecen a un post)
-        public ICollection<Hashtag> Hashtags { get; set; }
         public ICollection<Mention> Mentions { get; set; }
+        public ICollection<HashtagPost> HashtagPost { get; set; }
     }
 }

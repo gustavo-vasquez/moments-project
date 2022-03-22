@@ -11,8 +11,6 @@ namespace moments.Core.Repositories
         Task<bool> EditPasswordAsync(int userId, string oldPassword, string newPassword);
         Task<bool> EditBiographyAsync(int userId, string text);
         Task<bool> EditEmailAsync(int userId, string oldEmailAddress, string newEmailAddress);
-        Task<bool> FollowUserAsync(int userId, int userIdToFollow);
-        Task<bool> UnfollowUserAsync(int userId, int userIdToUnfollow);
         Task<IEnumerable<User>> GetFollowersAsync(int userId);
         Task<IEnumerable<User>> GetFollowingAsync(int userId);
     }
