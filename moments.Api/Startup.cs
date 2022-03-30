@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using moments.Core;
 using moments.Data;
+using moments.Core.Services;
+using moments.Services;
 
 namespace moments.Api
 {
@@ -31,7 +33,15 @@ namespace moments.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IUnitOfWork,UnitOfWork>();
+
+            // Inyección de dependencias
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IPostService, PostService>();
+            services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<IStoryService, StoryService>();
+            services.AddTransient<INotificationService, NotificationService>();
+
             services.AddDbContext<MomentsDbContext>
             (
                 options => options.UseSqlServer
