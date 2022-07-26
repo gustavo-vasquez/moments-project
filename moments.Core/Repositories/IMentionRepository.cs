@@ -7,6 +7,6 @@ namespace moments.Core.Repositories
 {
     public interface IMentionRepository : IRepository<Mention>
     {
-        Task<IEnumerable<Mention>> GetPostIdsWithMentionAsync(int userId);
+        Task<IEnumerable<Mention>> GetPostIdsWithMentionAsync(Guid userId);
     }
 }

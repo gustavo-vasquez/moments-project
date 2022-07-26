@@ -22,17 +22,17 @@ namespace moments.Data.Repositories
             
         }
 
-        public async Task<List<UserFollow>> GetFollowingIdsListAsync(int userId)
+        public async Task<List<UserFollow>> GetFollowingIdsListAsync(Guid userId)
         {
             return await _context.UserFollow.Include(x => x.IdFollower == userId).ToListAsync();
         }
 
-        public async Task<List<UserFollow>> GetFollowerIdsListAsync(int userId)
+        public async Task<List<UserFollow>> GetFollowerIdsListAsync(Guid userId)
         {
             return await _context.UserFollow.Include(x => x.IdFollowing == userId).ToListAsync();
         }
 
-        public async Task<bool> FollowUserAsync(int userId, int userIdToFollow)
+        public async Task<bool> FollowUserAsync(Guid userId, Guid userIdToFollow)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace moments.Data.Repositories
             }
         }
 
-        public async Task<bool> UnfollowUserAsync(int userId, int userIdToUnfollow)
+        public async Task<bool> UnfollowUserAsync(Guid userId, Guid userIdToUnfollow)
         {
             try
             {

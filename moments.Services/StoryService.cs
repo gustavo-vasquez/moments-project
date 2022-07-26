@@ -13,17 +13,17 @@ namespace moments.Services
         {
             this._unitOfWork = unitOfWork;
         }
-        public async Task<bool> StoryLimitIsExceeded(int userId)
+        public async Task<bool> StoryLimitIsExceeded(Guid userId)
         {
             return !await _unitOfWork.Stories.StoryLimitNotExceededAsync(userId);
         }
 
-        public Task<bool> CreateStory(int userId, bool isPermanent, string contentUrl)
+        public Task<bool> CreateStory(Guid userId, bool isPermanent, string contentUrl)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> RemoveStory(int userId, int storyId)
+        public Task<bool> RemoveStory(Guid userId, int storyId)
         {
             throw new NotImplementedException();
         }

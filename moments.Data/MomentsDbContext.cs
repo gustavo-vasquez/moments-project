@@ -1,13 +1,14 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using moments.Core.Models;
 using moments.Data.Configurations;
 
 namespace moments.Data
 {
-    public class MomentsDbContext : DbContext
+    public class MomentsDbContext : IdentityDbContext<User, Role, Guid>
     {
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Story> Stories { get; set; }
         public DbSet<Notification> Notifications { get; set; }
@@ -26,6 +27,7 @@ namespace moments.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new LikePostConfiguration());
             modelBuilder.ApplyConfiguration(new LikeCommentConfiguration());
             modelBuilder.ApplyConfiguration(new ReadLaterConfiguration());

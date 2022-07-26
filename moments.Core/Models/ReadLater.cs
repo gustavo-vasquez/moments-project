@@ -6,7 +6,7 @@ namespace moments.Core.Models
 {
     public class ReadLater // un usuario puede marcar para leer después muchas publicaciones y cada publicación puede ser marcada por varios usuarios
     {
-        public int IdUser { get; set; }
+        public Guid IdUser { get; set; }
         public User User { get; set; }
         public int IdPost { get; set; }
         public Post Post { get; set; }

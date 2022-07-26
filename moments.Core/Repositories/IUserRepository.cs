@@ -8,10 +8,10 @@ namespace moments.Core.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task<bool> EditPasswordAsync(int userId, string oldPassword, string newPassword);
-        Task<bool> EditBiographyAsync(int userId, string text);
-        Task<bool> EditEmailAsync(int userId, string oldEmailAddress, string newEmailAddress);
-        Task<IEnumerable<User>> GetFollowersAsync(int userId);
-        Task<IEnumerable<User>> GetFollowingAsync(int userId);
+        //Task<bool> EditPasswordAsync(Guid userId, string oldPassword, string newPassword);
+        Task<bool> EditBiographyAsync(Guid userId, string text);
+        //Task<bool> EditEmailAsync(Guid userId, string oldEmailAddress, string newEmailAddress);
+        Task<IEnumerable<User>> GetFollowersAsync(Guid userId);
+        Task<IEnumerable<User>> GetFollowingAsync(Guid userId);
     }
 }

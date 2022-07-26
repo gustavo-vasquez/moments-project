@@ -21,7 +21,7 @@ namespace moments.Data.Repositories
             
         }
 
-        public async Task<bool> SendLikeToCommentAsync(int userId, int commentId)
+        public async Task<bool> SendLikeToCommentAsync(Guid userId, int commentId)
         {
             try
             {

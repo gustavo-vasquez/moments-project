@@ -8,7 +8,7 @@ namespace moments.Core.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> GetByIdAsync(object id);
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<IEnumerable<TEntity>> SearchAsync(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> predicate);

@@ -5,10 +5,10 @@ namespace moments.Core.Services
 {
     public interface ICommentService
     {
-        Task<bool> AddComment(int userId, string comment);
+        Task<bool> AddComment(Guid userId, string comment);
         Task<bool> EditComment(int commentId, string editedComment);
         Task<bool> RemoveComment(int commentId);
-        Task<bool> SendLikeToComment(int userId, int commentId);
+        Task<bool> SendLikeToComment(Guid userId, int commentId);
         int GetLikesCount(int commentId);
     }
 }

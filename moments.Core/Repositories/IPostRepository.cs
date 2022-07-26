@@ -7,6 +7,6 @@ namespace moments.Core.Repositories
 {
     public interface IPostRepository : IRepository<Post>
     {
-        Task<bool> EditPostAsync(int userId, int postId, string mediaContent, PostType type, string description);
+        Task<bool> EditPostAsync(Guid userId, int postId, string mediaContent, PostType type, string description);
     }
 }

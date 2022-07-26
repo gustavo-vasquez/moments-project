@@ -16,7 +16,7 @@ namespace moments.Core.Models
         public string Text { get; set; }
         public DateTime PublicationDate { get; set; }
         public int? ReplyToCommentId { get; set; }
-        public int IdUser { get; set; }
+        public Guid IdUser { get; set; }
         public int IdPost { get; set; }
 
         [ForeignKey("IdUser")]

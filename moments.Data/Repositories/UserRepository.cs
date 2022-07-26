@@ -22,7 +22,7 @@ namespace moments.Data.Repositories
             
         }
 
-        public async Task<bool> EditBiographyAsync(int userId, string text)
+        public async Task<bool> EditBiographyAsync(Guid userId, string text)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace moments.Data.Repositories
             }
         }
 
-        public async Task<bool> EditEmailAsync(int userId, string oldEmailAddress, string newEmailAddress)
+        /*public async Task<bool> EditEmailAsync(Guid userId, string oldEmailAddress, string newEmailAddress)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace moments.Data.Repositories
             }
         }
 
-        public async Task<bool> EditPasswordAsync(int userId, string oldPassword, string newPassword)
+        public async Task<bool> EditPasswordAsync(Guid userId, string oldPassword, string newPassword)
         {
             try
             {
@@ -62,9 +62,9 @@ namespace moments.Data.Repositories
             {
                 return false;
             }
-        }
+        }*/
 
-        public async Task<IEnumerable<User>> GetFollowingAsync(int userId)
+        public async Task<IEnumerable<User>> GetFollowingAsync(Guid userId)
         {
             List<UserFollow> followingByMe = await _context.UserFollow.Include(x => x.IdFollower == userId).ToListAsync();
             List<User> followingList = new List<User>();
@@ -78,7 +78,7 @@ namespace moments.Data.Repositories
             return followingList;
         }
 
-        public async Task<IEnumerable<User>> GetFollowersAsync(int userId)
+        public async Task<IEnumerable<User>> GetFollowersAsync(Guid userId)
         {
             List<UserFollow> followingMe = await _context.UserFollow.Include(x => x.IdFollowing == userId).ToListAsync();
             List<User> followersList = new List<User>();

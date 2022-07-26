@@ -22,7 +22,7 @@ namespace moments.Data.Repositories
             
         }
         
-        public async Task<bool> EditPostAsync(int userId, int postId, string mediaContent, PostType type, string description)
+        public async Task<bool> EditPostAsync(Guid userId, int postId, string mediaContent, PostType type, string description)
         {
             try
             {

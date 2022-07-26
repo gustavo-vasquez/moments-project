@@ -16,6 +16,8 @@ using moments.Core;
 using moments.Data;
 using moments.Core.Services;
 using moments.Services;
+using moments.Core.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace moments.Api
 {
@@ -24,7 +26,6 @@ namespace moments.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
         public IConfiguration Configuration { get; }
@@ -50,6 +51,23 @@ namespace moments.Api
                     x => x.MigrationsAssembly("moments.Data")
                 )
             );
+			
+			// AddIdentity<User, Role> -> utiliza las implementaciones propias para el usuario y rol
+			// AddEntityFrameworkStores<MomentsDbContext> -> indica el contexto donde Identity almacenará la información
+			// AddDefaultTokenProviders -> agrega los proveedores predeterminados para generar tokens (para cambio de contraseña, email, teléfono y verificación en 2 pasos)
+			services.AddIdentity<User, Role>()
+			.AddEntityFrameworkStores<MomentsDbContext>()
+			.AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.User.RequireUniqueEmail = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

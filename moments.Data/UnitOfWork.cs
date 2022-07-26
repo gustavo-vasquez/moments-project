@@ -21,6 +21,11 @@ namespace moments.Data
         private LikePostRepository _likePostRepository;
         private LikeCommentRepository _likeCommentRepository;
         private HashtagPostRepository _hashtagPostRepository;
+
+        public UnitOfWork(MomentsDbContext context)
+        {
+            this._context = context;
+        }
         public IUserRepository Users => _userRepository = _userRepository ?? new UserRepository(_context);
 
         public IPostRepository Posts => _postRepository = _postRepository ?? new PostRepository(_context);

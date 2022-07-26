@@ -15,7 +15,7 @@ namespace moments.Core.Models
         public string Description { get; set; }
         public bool IsRead { get; set; }
         public DateTime DeliveryDate { get; set; }
-        public int IdUser { get; set; }
+        public Guid IdUser { get; set; }
 
         [ForeignKey("IdUser")]
         public User User { get; set; }

@@ -19,7 +19,7 @@ namespace moments.Core.Models
         [MaxLength(250)]
         public string Message { get; set; }
         public string MusicUrl { get; set; }
-        public int IdUser { get; set; }
+        public Guid IdUser { get; set; }
 
         [ForeignKey("IdUser")]
         public User User { get; set; } // user 1 a N stories (N stories pertenecen a un usuario)

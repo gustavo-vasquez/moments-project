@@ -17,17 +17,17 @@ namespace moments.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public Task<bool> Publish(int userId, string mediaContent, PostType type, string description)
+        public Task<bool> Publish(Guid userId, string mediaContent, PostType type, string description)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> EditPostAsync(int userId, int postId, string mediaContent, PostType type, string description)
+        public Task<bool> EditPostAsync(Guid userId, int postId, string mediaContent, PostType type, string description)
         {
             throw new NotImplementedException();
         }
 
-        public async void DropPost(int userId, int postId)
+        public async void DropPost(Guid userId, int postId)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace moments.Services
             }
         }
 
-        public async Task<bool> SendLikeAsync(int userId, int postId)
+        public async Task<bool> SendLikeAsync(Guid userId, int postId)
         {
             return await _unitOfWork.LikePost.SendLikeAsync(userId, postId);
         }

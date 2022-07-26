@@ -7,9 +7,9 @@ namespace moments.Core.Models
 {
     public class UserFollow
     {
-        public int IdFollower { get; set; }
+        public Guid IdFollower { get; set; }
         public User Follower { get; set; }
-        public int IdFollowing { get; set; }
+        public Guid IdFollowing { get; set; }
         public User Following { get; set; }
         public DateTime ActionDate { get; set; }
     }

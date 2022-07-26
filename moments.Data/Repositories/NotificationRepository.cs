@@ -20,7 +20,7 @@ namespace moments.Data.Repositories
         {
             
         }
-        public async Task<bool> MarkAllAsReadAsync(int userId)
+        public async Task<bool> MarkAllAsReadAsync(Guid userId)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace moments.Data.Repositories
             }            
         }
 
-        public async Task<bool> MarkAsReadAsync(int userId, int notificationId)
+        public async Task<bool> MarkAsReadAsync(Guid userId, int notificationId)
         {
             try
             {

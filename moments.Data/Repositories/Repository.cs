@@ -53,7 +53,7 @@ namespace moments.Data.Repositories
             return await Context.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
+        public async Task<TEntity> GetByIdAsync(object id)
         {
             return await Context.Set<TEntity>().FindAsync(id);
         }

@@ -3,12 +3,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace moments.Core.Models
 {
-    public class User
+    public class User : IdentityUser<Guid>, IUser
     {
-        [Key]
+        /*[Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
@@ -22,22 +23,22 @@ namespace moments.Core.Models
 
         [Required]
         [MaxLength(25)]
-        public string Username { get; set; }
+        public string UserName { get; set; }*/
 
         [MaxLength(25)]
-        public string Nickname { get; set; }
+        public string NickName { get; set; }
 
         [MaxLength(25)]
-        public string Name { get; set; }
+        public string FirstName { get; set; }
 
         [MaxLength(25)]
-        public string Lastname { get; set; }
+        public string LastName { get; set; }
 
         [MaxLength(300)]
         public string Biography { get; set; }
 
-        [Range(00000001,9999999999)]
-        public int? Telephone { get; set; }
+        //[Range(00000001,9999999999)]
+        //public int? Telephone { get; set; }
         public DateTime Birthdate { get; set; }
 
         // 1 a N

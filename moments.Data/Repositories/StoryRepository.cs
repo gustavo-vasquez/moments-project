@@ -24,7 +24,7 @@ namespace moments.Data.Repositories
             
         }
 
-        public async Task<bool> StoryLimitNotExceededAsync(int userId)
+        public async Task<bool> StoryLimitNotExceededAsync(Guid userId)
         {
             IEnumerable<Story> stories = await base.SearchAsync(x => x.IdUser == userId);
             return stories.Count() < _storyLimit;

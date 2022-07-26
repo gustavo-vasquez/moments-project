@@ -14,7 +14,7 @@ namespace moments.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public Task<bool> AddComment(int userId, string comment)
+        public Task<bool> AddComment(Guid userId, string comment)
         {
             throw new NotImplementedException();
         }
@@ -29,7 +29,7 @@ namespace moments.Services
             throw new NotImplementedException();
         }
 
-        public async Task<bool> SendLikeToComment(int userId, int commentId)
+        public async Task<bool> SendLikeToComment(Guid userId, int commentId)
         {
             return await _unitOfWork.LikeComment.SendLikeToCommentAsync(userId, commentId);
         }

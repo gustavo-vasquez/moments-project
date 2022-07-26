@@ -14,12 +14,12 @@ namespace moments.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> MarkAsRead(int userId, int notificationId)
+        public async Task<bool> MarkAsRead(Guid userId, int notificationId)
         {
             return await _unitOfWork.Notifications.MarkAsReadAsync(userId, notificationId);
         }
 
-        public async Task<bool> MarkAllAsRead(int userId)
+        public async Task<bool> MarkAllAsRead(Guid userId)
         {
             return await _unitOfWork.Notifications.MarkAllAsReadAsync(userId);
         }

@@ -16,12 +16,12 @@ namespace moments.Services
         {
             this._unitOfWork = unitOfWork;
         }
-        public Task<bool> CreateUser(string email, string password, string username)
+        /*public Task<bool> CreateUser(string email, string password, string username)
         {
             throw new NotImplementedException();
         }
 
-        public async void DropOut(int userId, string password)
+        public async void DropOut(Guid userId, string password)
         {
             try
             {
@@ -82,39 +82,39 @@ namespace moments.Services
         public Task<bool> Logout()
         {
             throw new NotImplementedException();
-        }
+        }*/
 
-        public async Task<bool> EditBiography(int userId, string text)
+        public async Task<bool> EditBiography(Guid userId, string text)
         {
             return await _unitOfWork.Users.EditBiographyAsync(userId, text);
         }
 
-        public async Task<bool> EditEmail(int userId, string oldEmailAddress, string newEmailAddress)
+        /*public async Task<bool> EditEmail(Guid userId, string oldEmailAddress, string newEmailAddress)
         {
             return await _unitOfWork.Users.EditEmailAsync(userId, oldEmailAddress, newEmailAddress);
         }
 
-        public async Task<bool> EditPassword(int userId, string oldPassword, string newPassword)
+        public async Task<bool> EditPassword(Guid userId, string oldPassword, string newPassword)
         {
             return await _unitOfWork.Users.EditPasswordAsync(userId, oldPassword, newPassword);
-        }
+        }*/
 
-        public async Task<bool> FollowUser(int userId, int userIdToFollow)
+        public async Task<bool> FollowUser(Guid userId, Guid userIdToFollow)
         {
             return await _unitOfWork.UserFollow.FollowUserAsync(userId, userIdToFollow);
         }
 
-        public async Task<bool> UnfollowUser(int userId, int userIdToUnfollow)
+        public async Task<bool> UnfollowUser(Guid userId, Guid userIdToUnfollow)
         {
             return await _unitOfWork.UserFollow.UnfollowUserAsync(userId, userIdToUnfollow);
         }
 
-        public async Task<IEnumerable<User>> GetFollowers(int userId)
+        public async Task<IEnumerable<User>> GetFollowers(Guid userId)
         {
             return await _unitOfWork.Users.GetFollowersAsync(userId);
         }
 
-        public async Task<IEnumerable<User>> GetFollowing(int userId)
+        public async Task<IEnumerable<User>> GetFollowing(Guid userId)
         {
             return await _unitOfWork.Users.GetFollowingAsync(userId);
         }

@@ -21,7 +21,7 @@ namespace moments.Core.Models
         public string ImageUrl { get; set; }
         public string VideoUrl { get; set; }
         public string GalleryUrls { get; set; }
-        public int IdUser { get; set; } // FK
+        public Guid IdUser { get; set; } // FK
 
         [ForeignKey("IdUser")]
         public User User { get; set; } // user 1 a N posts (N posts pertenecen a un usuario)
