@@ -18,6 +18,8 @@ using moments.Core.Services;
 using moments.Services;
 using moments.Core.Models;
 using Microsoft.AspNetCore.Identity;
+using moments.Api.Resources;
+using moments.Api.Extensions;
 
 namespace moments.Api
 {
@@ -33,6 +35,8 @@ namespace moments.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var jwtResource = Configuration.GetSection("Jwt").Get<JwtResource>();
+
             services.AddControllers();
 
             // Inyección de dependencias
@@ -68,6 +72,9 @@ namespace moments.Api
                 options.Password.RequireNonAlphanumeric = false;
                 options.User.RequireUniqueEmail = true;
             });
+
+            services.Configure<JwtResource>(Configuration.GetSection("Jwt"));
+            services.AddAuth(jwtResource);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,7 +89,9 @@ namespace moments.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
+
+            app.UseAuth();
 
             app.UseEndpoints(endpoints =>
             {
