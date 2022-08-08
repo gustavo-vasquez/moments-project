@@ -45,6 +45,7 @@ namespace moments.Core.Models
         public ICollection<Post> Posts { get; set; } // user 1 a N posts
         public ICollection<Story> Stories { get; set; } // user 1 a N stories
         public ICollection<Comment> Comments { get; set; } // user 1 a N comentarios
+        public ICollection<RefreshToken> RefreshTokens { get; set; } // user 1 a N refresh tokens
 
         // N a N
         public ICollection<ReadLater> ReadLater { get; set; }

@@ -18,6 +18,7 @@ namespace moments.Core
         ILikePostRepository LikePost { get; }
         ILikeCommentRepository LikeComment { get; }
         IHashtagPostRepository HashtagPost { get; }
+        IRefreshTokenRepository RefreshToken { get; }
         Task<int> CommitAsync();
     }
 }

@@ -21,11 +21,13 @@ namespace moments.Data
         private LikePostRepository _likePostRepository;
         private LikeCommentRepository _likeCommentRepository;
         private HashtagPostRepository _hashtagPostRepository;
+        private RefreshTokenRepository _refreshTokenRepository;
 
         public UnitOfWork(MomentsDbContext context)
         {
             this._context = context;
         }
+        
         public IUserRepository Users => _userRepository = _userRepository ?? new UserRepository(_context);
 
         public IPostRepository Posts => _postRepository = _postRepository ?? new PostRepository(_context);
@@ -44,6 +46,7 @@ namespace moments.Data
         public ILikePostRepository LikePost => _likePostRepository = _likePostRepository ?? new LikePostRepository(_context);
         public ILikeCommentRepository LikeComment => _likeCommentRepository = _likeCommentRepository ?? new LikeCommentRepository(_context);
         public IHashtagPostRepository HashtagPost => _hashtagPostRepository = _hashtagPostRepository ?? new HashtagPostRepository(_context);
+        public IRefreshTokenRepository RefreshToken => _refreshTokenRepository = _refreshTokenRepository ?? new RefreshTokenRepository(_context);
 
         public async Task<int> CommitAsync()
         {

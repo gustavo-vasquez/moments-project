@@ -4,16 +4,26 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using moments.Api.Resources;
+using moments.Core;
 
 namespace moments.Api.Extensions
 {
     public static class AuthExtensions
     {
-        public static IServiceCollection AddAuth(this IServiceCollection services, JwtResource jwtResource)
+        public static IServiceCollection AddAuth(this IServiceCollection services, JwtSettings jwtSettings)
         {
             services
-            .AddAuthorization()
+            .AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "elbromas",
+                    policy =>
+                    {
+                        policy.RequireUserName("joker_arkham");
+                        policy.RequireRole("Administrador");
+                    }
+                );
+            })
             .AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -26,9 +36,9 @@ namespace moments.Api.Extensions
 
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = jwtResource.Issuer,
-                    ValidAudience = jwtResource.Issuer,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtResource.Secret)),
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidAudience = jwtSettings.Issuer,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
                     ClockSkew = TimeSpan.Zero
                 };
 

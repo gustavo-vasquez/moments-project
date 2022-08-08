@@ -3,6 +3,6 @@ using moments.Core.Models;
 
 namespace moments.Core.Repositories
 {
-    public interface IHashtagPostRepository : IRepository<HashtagPost>
+    public interface IRefreshTokenRepository : IRepository<RefreshToken>
     {}
 }

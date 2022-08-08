@@ -19,6 +19,7 @@ namespace moments.Data
         public DbSet<LikePost> LikePost { get; set; }
         public DbSet<LikeComment> LikeComment { get; set; }
         public DbSet<Mention> Mentions { get; set; }
+        public DbSet<RefreshToken> RefreshToken { get; set; }
 
         public MomentsDbContext(DbContextOptions<MomentsDbContext> options) : base (options)
         {

@@ -35,7 +35,7 @@ namespace moments.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var jwtResource = Configuration.GetSection("Jwt").Get<JwtResource>();
+            JwtSettings jwtSettings = Configuration.GetSection("Jwt").Get<JwtSettings>();
 
             services.AddControllers();
 
@@ -46,6 +46,7 @@ namespace moments.Api
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IStoryService, StoryService>();
             services.AddTransient<INotificationService, NotificationService>();
+            services.AddTransient<ITokenService, TokenService>();
 
             services.AddDbContext<MomentsDbContext>
             (
@@ -73,8 +74,8 @@ namespace moments.Api
                 options.User.RequireUniqueEmail = true;
             });
 
-            services.Configure<JwtResource>(Configuration.GetSection("Jwt"));
-            services.AddAuth(jwtResource);
+            services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
+            services.AddAuth(jwtSettings);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,7 +92,7 @@ namespace moments.Api
 
             //app.UseAuthorization();
 
-            app.UseAuth();
+            app.UseAuth(); // Método dentro de extensión propia para habilitar la autorización y autenticación
 
             app.UseEndpoints(endpoints =>
             {

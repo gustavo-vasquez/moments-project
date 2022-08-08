@@ -12,6 +12,8 @@ using Microsoft.IdentityModel.Tokens;
 using moments.Api.Resources;
 using moments.Core;
 using moments.Core.Models;
+using moments.Core.Services;
+using moments.Services;
 
 namespace moments.Api.Controllers
 {
@@ -20,29 +22,55 @@ namespace moments.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        //private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
-        private readonly JwtResource _jwtResource;
+        private readonly JwtSettings _jwtSettings;
+        private readonly ITokenService _tokenService;
 
-        public AuthController(IUnitOfWork unitOfWork, UserManager<User> userManager, RoleManager<Role> roleManager, IOptionsSnapshot<JwtResource> jwtResource)
+        public AuthController(UserManager<User> userManager, RoleManager<Role> roleManager, IOptionsSnapshot<JwtSettings> _jwtSettings, ITokenService tokenService)
         {
-            //this._unitOfWork = unitOfWork;
             this._userManager = userManager;
             this._roleManager = roleManager;
-            this._jwtResource = jwtResource.Value;
+            this._jwtSettings = _jwtSettings.Value;
+            this._tokenService = tokenService;
         }
 
+#region SALUDOS DE PRUEBA
+
         [HttpGet("[action]")]
-        [AllowAnonymous]
-        public IActionResult Saludo()
+        [Authorize("elbromas")]
+        public IActionResult SaludoJoker()
         {
             return Ok("hooooola!");
         }
 
+        [HttpGet("[action]")]
+        [Authorize(Roles = "Administrador")] // politica personalizada en la que tiene que cumplir el nombre de usuario indicado
+        public IActionResult SaludoAdministrador()
+        {
+            return Ok("Hola administrador");
+        }
+
+        [HttpGet("[action]")]
+        [Authorize(Roles = "Usuario")]
+        public IActionResult SaludoUsuario()
+        {
+            return Ok("Hola usuario");
+        }
+
+        [HttpGet("[action]")]
+        [Authorize(Roles = "Temporal")]
+        public IActionResult SaludoTemporal()
+        {
+            return Ok("Hola temporal");
+        }
+
+#endregion
+
 # region LOGIN Y REGISTRO
 
         [HttpPost("[action]")]
+        [AllowAnonymous]
         public async Task<IActionResult> SignUp(UserSignUpResource userSignUpResource)
         {
             User newUser = new User()
@@ -75,10 +103,38 @@ namespace moments.Api.Controllers
             if(passwordIsValid)
             {
                 IList<string> userRoles = await _userManager.GetRolesAsync(user); // los roles a los que el usuario activo pertenece
-                return Ok(GenerateJwt(user, userRoles)); // crear el token para el usuario logueado
+                //return Ok(GenerateAccessToken(user, userRoles)); // crear el token para el usuario logueado
+                var accessToken = _tokenService.GenerateAccessToken(user, userRoles, _jwtSettings);
+                var refreshToken = await _tokenService.GenerateRefreshToken(user.Id);
+
+                return Ok(new { AccessToken = accessToken, RefreshToken = refreshToken });
             }
 
             return BadRequest("Email o contraseña incorrecta.");
+        }
+
+        [HttpPost("{username}/[action]")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ReNewToken(string username, [FromForm] string refreshTokenValue)
+        {
+            User user = await _userManager.FindByNameAsync(username);
+
+            if(user is null)
+                return NotFound($"Usuario '{username}' no encontrado.");
+
+            IList<string> userRoles = await _userManager.GetRolesAsync(user); // los roles a los que el usuario activo pertenece
+
+            try
+            {
+                return Ok(await _tokenService.ReNewTokens(refreshTokenValue, userRoles, _jwtSettings));
+            }
+            catch(Exception ex)
+            {
+                if(ex is ArgumentException)
+                    return BadRequest(ex.Message);
+                
+                return Forbid();
+            }
         }
 
 #endregion
@@ -106,9 +162,9 @@ namespace moments.Api.Controllers
 
             return Problem(roleResult.Errors.First().Description, null, 500);
         }
-
-        [AllowAnonymous]
+        
         [HttpGet("Role")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetRoleMembers(string roleName)
         {
             if(await _roleManager.RoleExistsAsync(roleName))
@@ -168,7 +224,7 @@ namespace moments.Api.Controllers
 
 #endregion
 
-        private string GenerateJwt(User user, IList<string> roles)
+        /* private string GenerateAccessToken(User user, IList<string> roles)
         {
             var claims = new List<Claim>
             {
@@ -182,19 +238,19 @@ namespace moments.Api.Controllers
             IEnumerable<Claim> roleClaims = roles.Select(r => new Claim(ClaimTypes.Role, r)); // creo un claim para cada rol al que pertenezca el usuario y lo agrego a la lista
             claims.AddRange(roleClaims); // agrego todos los roles al token
 
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_jwtResource.Secret));
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_jwtSettings.Secret));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(_jwtResource.ExpirationInDays));
+            var expires = DateTime.Now.AddHours(Convert.ToDouble(_jwtSettings.ExpirationInHours)); // tiempo de expiración (valor extraído de appsettings)
 
             var token = new JwtSecurityToken(
-                issuer: _jwtResource.Issuer,
-                audience: _jwtResource.Issuer,
+                issuer: _jwtSettings.Issuer,
+                audience: _jwtSettings.Audience,
                 claims,
                 expires: expires,
                 signingCredentials: credentials
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        } */
     }
 }
