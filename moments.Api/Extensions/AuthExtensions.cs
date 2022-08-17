@@ -37,7 +37,9 @@ namespace moments.Api.Extensions
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidIssuer = jwtSettings.Issuer,
-                    ValidAudience = jwtSettings.Issuer,
+                    ValidAudience = jwtSettings.Audience,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
                     ClockSkew = TimeSpan.Zero
                 };

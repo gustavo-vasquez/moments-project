@@ -91,7 +91,7 @@ namespace moments.Api.Controllers
 
         [HttpPost("[action]")]
         [AllowAnonymous]
-        public async Task<IActionResult> SignIn(UserLoginResource userLoginResource)
+        public async Task<IActionResult> SignIn([FromForm] UserLoginResource userLoginResource)
         {
             User user = _userManager.Users.SingleOrDefault(u => u.Email == userLoginResource.Email);
 

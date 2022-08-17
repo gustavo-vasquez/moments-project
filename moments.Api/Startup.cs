@@ -86,6 +86,13 @@ namespace moments.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("https://localhost:3000", "https://www.moments.app:3000");
+                builder.AllowAnyMethod();
+                builder.AllowAnyHeader();
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
